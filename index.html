@@ -451,12 +451,57 @@ body.menu-active .menu-close-btn{opacity:1;pointer-events:all;}
           <div class="section-label fade-up"><span class="star-icon">&#10022;</span> Featured Projects</div>
           <h2 class="projects-title fade-up">Production Apps<br>Shipped to Stores</h2>
         </div>
-        <span class="projects-cta fade-up" style="opacity:.4;cursor:default;">More Coming Soon &#8599;</span>
+        <a href="javascript:void(0)" class="projects-cta fade-up" id="view-more-projects-btn" style="cursor:pointer;text-decoration:none;">View More &#8599;</a>
       </div>
       <div class="projects-grid">
 
-        <!-- VPMS -->
+        <!-- Current Diary -->
         <div class="project-card fade-up">
+          <div class="project-thumb">
+            <div class="project-thumb-bg" style="background:linear-gradient(135deg,#0e1a12 0%,#1a3a22 40%,#0d2818 100%);display:flex;align-items:center;justify-content:center;padding:24px;">
+              <img src="project screenshots/current-diary.webp" alt="Current Diary" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.4));" />
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-tags"><span class="project-tag">Flutter</span><span class="project-tag">Firebase</span><span class="project-tag">App Store &#10003;</span></div>
+            <h3 class="project-title">Current Diary &mdash; School ERP App</h3>
+            <p class="project-desc">Production School ERP live on the Apple App Store &mdash; managing attendance, timetables, fee records, and multi-role communication across student, teacher, and admin roles.</p>
+            <a href="https://apps.apple.com/in/app/current-diary-erp/id6499542308" target="_blank" class="project-link">View on App Store &#8599;</a>
+          </div>
+        </div>
+
+        <!-- Swirl Wines -->
+        <div class="project-card fade-up">
+          <div class="project-thumb">
+            <div class="project-thumb-bg" style="background:linear-gradient(135deg,#1a0d2e 0%,#2d1a50 40%,#1a0d3a 100%);display:flex;align-items:center;justify-content:center;padding:24px;">
+              <img src="project screenshots/swirl.png" alt="Swirl Wines" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.4));" />
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-tags"><span class="project-tag">Flutter</span><span class="project-tag">REST APIs</span><span class="project-tag">App Store &#10003;</span></div>
+            <h3 class="project-title">Swirl Wines &mdash; Wine Discovery App</h3>
+            <p class="project-desc">Sweden-based wine discovery and cataloguing app &mdash; Flutter UI features and API integration for personalised wine recommendations and user collections. Published on Apple App Store.</p>
+            <a href="https://apps.apple.com/in/app/swirl-wine-recommendations/id6670340798" target="_blank" class="project-link">View on App Store &#8599;</a>
+          </div>
+        </div>
+
+        <!-- Expensely -->
+        <div class="project-card fade-up">
+          <div class="project-thumb">
+            <div class="project-thumb-bg" style="background:linear-gradient(135deg,#121a22 0%,#203444 40%,#152028 100%);display:flex;align-items:center;justify-content:center;padding:24px;">
+              <img src="project screenshots/expensely.webp" alt="Expensely" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.4));" />
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-tags"><span class="project-tag">Flutter</span><span class="project-tag">Hive</span><span class="project-tag">Play Store &#10003;</span></div>
+            <h3 class="project-title">Expensely</h3>
+            <p class="project-desc">A personal finance manager designed for offline usage. It uses Hive for fast, local storage, allowing users to track expenses and view reports without an internet connection. Sync functionality is available when online.</p>
+            <a href="https://play.google.com/store/apps/details?id=com.shivam.expensely_app" target="_blank" class="project-link">View on Play Store &#8599;</a>
+          </div>
+        </div>
+
+        <!-- VPMS -->
+        <div class="project-card fade-up extra-project" style="display:none;">
           <div class="project-thumb">
             <div class="project-thumb-bg" style="background:linear-gradient(135deg,#0d1a2e 0%,#1a3a5c 40%,#0d2540 100%);display:flex;align-items:center;justify-content:center;">
               <div style="width:80%;height:70%;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;padding:16px;gap:8px;">
@@ -485,59 +530,8 @@ body.menu-active .menu-close-btn{opacity:1;pointer-events:all;}
           </div>
         </div>
 
-        <!-- Current Diary -->
-        <div class="project-card fade-up">
-          <div class="project-thumb">
-            <div class="project-thumb-bg" style="background:linear-gradient(135deg,#0e1a12 0%,#1a3a22 40%,#0d2818 100%);display:flex;align-items:center;justify-content:center;">
-              <div style="width:68%;height:78%;background:rgba(255,255,255,.04);border-radius:14px;border:1px solid rgba(255,255,255,.1);overflow:hidden;display:flex;flex-direction:column;">
-                <div style="height:32px;background:rgba(40,180,100,.15);display:flex;align-items:center;padding:0 12px;gap:8px;">
-                  <div style="width:18px;height:18px;border-radius:50%;background:rgba(40,180,100,.4);"></div>
-                  <div style="height:5px;width:60%;background:rgba(255,255,255,.15);border-radius:3px;"></div>
-                </div>
-                <div style="flex:1;padding:12px;display:flex;flex-direction:column;gap:7px;">
-                  <div style="height:6px;width:70%;background:rgba(255,255,255,.12);border-radius:3px;"></div>
-                  <div style="height:6px;width:50%;background:rgba(255,255,255,.07);border-radius:3px;"></div>
-                  <div style="flex:1;background:rgba(40,180,100,.08);border-radius:6px;margin-top:6px;display:flex;align-items:center;justify-content:center;font-size:28px;">🍎</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags"><span class="project-tag">Flutter</span><span class="project-tag">Firebase</span><span class="project-tag">App Store &#10003;</span></div>
-            <h3 class="project-title">Current Diary &mdash; School ERP App</h3>
-            <p class="project-desc">Production School ERP live on the Apple App Store &mdash; managing attendance, timetables, fee records, and multi-role communication across student, teacher, and admin roles.</p>
-            <a href="https://apps.apple.com" target="_blank" class="project-link">View on App Store &#8599;</a>
-          </div>
-        </div>
-
-        <!-- Swirl Wines -->
-        <div class="project-card fade-up">
-          <div class="project-thumb">
-            <div class="project-thumb-bg" style="background:linear-gradient(135deg,#1a0d2e 0%,#2d1a50 40%,#1a0d3a 100%);display:flex;align-items:center;justify-content:center;">
-              <div style="width:68%;height:78%;background:rgba(255,255,255,.04);border-radius:14px;border:1px solid rgba(255,255,255,.1);overflow:hidden;display:flex;flex-direction:column;">
-                <div style="height:32px;background:rgba(130,80,255,.2);display:flex;align-items:center;padding:0 12px;gap:8px;">
-                  <div style="width:18px;height:18px;border-radius:50%;background:rgba(130,80,255,.5);"></div>
-                  <div style="height:5px;width:55%;background:rgba(255,255,255,.2);border-radius:3px;"></div>
-                </div>
-                <div style="flex:1;padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-                  <div style="background:rgba(130,80,255,.15);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:24px;">&#127863;</div>
-                  <div style="background:rgba(255,255,255,.05);border-radius:6px;"></div>
-                  <div style="background:rgba(255,255,255,.05);border-radius:6px;"></div>
-                  <div style="background:rgba(130,80,255,.1);border-radius:6px;"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags"><span class="project-tag">Flutter</span><span class="project-tag">REST APIs</span><span class="project-tag">Play Store &#10003;</span></div>
-            <h3 class="project-title">Swirl Wines &mdash; Wine Discovery App</h3>
-            <p class="project-desc">Sweden-based wine discovery and cataloguing app &mdash; Flutter UI features and API integration for personalised wine recommendations and user collections. Published on Google Play Store.</p>
-            <a href="https://play.google.com" target="_blank" class="project-link">View on Play Store &#8599;</a>
-          </div>
-        </div>
-
         <!-- RAG Assistant -->
-        <div class="project-card fade-up">
+        <div class="project-card fade-up extra-project" style="display:none;">
           <div class="project-thumb">
             <div class="project-thumb-bg" style="background:linear-gradient(135deg,#1a1000 0%,#3a2800 40%,#251800 100%);display:flex;align-items:center;justify-content:center;">
               <div style="width:80%;height:70%;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.08);padding:16px;display:flex;flex-direction:column;justify-content:space-between;">
@@ -900,6 +894,25 @@ function startAll(){
   var fadeEls=document.querySelectorAll('.fade-up');
   var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.12});
   fadeEls.forEach(function(el){obs.observe(el);});
+
+  var viewMoreBtn = document.getElementById('view-more-projects-btn');
+  if(viewMoreBtn) {
+    viewMoreBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var extraProjects = document.querySelectorAll('.extra-project');
+      extraProjects.forEach(function(p) {
+        p.style.display = '';
+        setTimeout(function(){ p.classList.add('visible'); }, 50);
+      });
+      viewMoreBtn.style.display = 'none';
+      if(extraProjects.length > 0) {
+        setTimeout(function() {
+          var y = extraProjects[0].getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }, 100);
+      }
+    });
+  }
 }
 if(!document.getElementById('pl-wrap'))startAll();
 })();
