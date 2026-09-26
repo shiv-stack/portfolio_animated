@@ -1606,7 +1606,7 @@
     .footer-grid {
       display: grid;
       grid-template-columns: 260px 1fr 1fr 1fr;
-      gap: 48px;
+      gap: 56px;
       margin-bottom: 60px;
     }
 
@@ -1652,22 +1652,25 @@
 
     .footer-bottom {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      text-align: center;
       border-top: 1px solid var(--border);
       padding-top: 24px;
-      flex-wrap: wrap;
-      gap: 12px;
+      gap: 8px;
     }
 
     .footer-copy {
       font-size: 13px;
-      color: rgba(255, 255, 255, .3);
+      color: rgba(255, 255, 255, .35);
+      text-align: center;
     }
 
     .footer-made {
       font-size: 13px;
-      color: rgba(255, 255, 255, .3);
+      color: rgba(255, 255, 255, .35);
+      text-align: center;
     }
 
     .footer-made span {
@@ -1702,7 +1705,7 @@
 
       .footer-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 36px 48px;
+        gap: 40px 48px;
       }
 
       .exp-item {
@@ -1839,27 +1842,27 @@
       }
 
       .hero-actions {
+        display: flex;
+        align-items: center;
         gap: 12px;
         flex-wrap: wrap;
       }
 
       .btn-orange,
       .btn-resume {
-        padding: 12px 20px;
-        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        padding: 13px 24px;
+        font-size: 14px;
       }
 
       .btn-ghost {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        font-size: 13px;
+        gap: 8px;
+        font-size: 14px;
         font-weight: 500;
-        color: rgba(255, 255, 255, .85);
-        padding: 12px 20px;
-        border-radius: 50px;
-        border: 1px solid rgba(255, 255, 255, .15);
-        background: rgba(255, 255, 255, .04);
+        color: rgba(255, 255, 255, .75);
       }
 
       #social-proof {
@@ -2078,15 +2081,18 @@
       }
 
       .cta-actions {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
       }
 
       .btn-large {
-        justify-content: center;
-        padding: 15px 24px;
-        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        padding: 16px 32px;
+        font-size: 15px;
       }
 
       .cta-email {
@@ -2094,21 +2100,21 @@
         margin-top: 28px;
       }
 
-      /* FOOTER — REMAINS SAME AS WEB DESIGN */
+      /* FOOTER — SPACING BETWEEN COLUMNS & CENTERED BOTTOM */
       .footer-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 32px 24px;
+        gap: 40px 36px;
         margin-bottom: 40px;
       }
 
       .footer-bottom {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 12px;
-        padding-top: 20px;
+        justify-content: center;
+        text-align: center;
+        gap: 8px;
+        padding-top: 24px;
         border-top: 1px solid var(--border);
       }
     }
@@ -2130,31 +2136,6 @@
 
       .hero-tagline {
         font-size: 16px;
-      }
-
-      .btn-orange,
-      .btn-resume {
-        padding: 11px 18px;
-        font-size: 13px;
-      }
-
-      .btn-ghost {
-        padding: 11px 18px;
-        font-size: 13px;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-      }
-
-      .hero-actions .btn-orange,
-      .hero-actions .btn-resume,
-      .hero-actions .btn-ghost {
-        justify-content: center;
-        text-align: center;
-        width: 100%;
       }
 
       .testi-card[style*="grid-column"]>div {
@@ -2185,12 +2166,16 @@
 
       .footer-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 28px 16px;
+        gap: 36px 24px;
       }
 
       .footer-bottom {
-        flex-direction: row;
-        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 6px;
         font-size: 12px;
       }
     }
