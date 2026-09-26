@@ -1334,7 +1334,44 @@
       align-items: center;
       gap: 16px;
       margin-bottom: 14px;
+      flex-wrap: wrap;
     }
+
+    .service-duration-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--orange);
+      background: rgba(237, 122, 54, 0.12);
+      border: 1px solid rgba(237, 122, 54, 0.28);
+      padding: 4px 12px;
+      border-radius: 50px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .service-outcome-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.92);
+      background: rgba(237, 122, 54, 0.06);
+      padding: 6px 14px;
+      border-radius: 6px;
+      border-left: 2px solid var(--orange);
+      margin-bottom: 14px;
+    }
+
+    .service-outcome-arrow {
+      color: var(--orange);
+      font-weight: 700;
+    }
+
 
     .service-name {
       font-family: var(--font-display);
@@ -2261,7 +2298,7 @@
             <li><a href="#about-sec" data-idx="1">About <span class="menu-link-arrow">&#8599;</span></a></li>
             <li><a href="#works-sec" data-idx="2">Projects <span class="menu-link-arrow">&#8599;</span></a></li>
             <li><a href="#experience-sec" data-idx="3">Experience <span class="menu-link-arrow">&#8599;</span></a></li>
-            <li><a href="#Service-sec" data-idx="4">Skills <span class="menu-link-arrow">&#8599;</span></a></li>
+            <li><a href="#Service-sec" data-idx="4">How I Work <span class="menu-link-arrow">&#8599;</span></a></li>
             <li><a href="#contact" data-idx="5">Contact <span class="menu-link-arrow">&#8599;</span></a></li>
           </ul>
         </div>
@@ -2684,95 +2721,168 @@
       </div>
     </section>
 
-    <!-- SKILLS / EXPERTISE -->
+    <!-- WORK PROCESS / HOW I WORK -->
     <section id="Service-sec">
       <div class="container">
         <div class="services-head">
           <div>
-            <div class="section-label fade-up"><span class="star-icon">&#10022;</span> Core Expertise</div>
-            <h2 class="services-title fade-up">What I Build<br>&amp; How I Do It</h2>
+            <div class="section-label fade-up"><span class="star-icon">&#10022;</span> Work Process</div>
+            <h2 class="services-title fade-up">How I Work</h2>
           </div>
           <div class="fade-up">
-            <p class="services-desc">From design to deployment &mdash; scalable mobile apps built with clean
-              architecture and tested, production-grade code.</p>
+            <p class="services-desc">A transparent, structured 5-step engineering process designed to turn app ideas into high-performance, production-ready iOS &amp; Android releases.</p>
             <a href="#contact" class="btn-orange">Let&#39;s Work Together <span class="btn-icon">&#8599;</span></a>
           </div>
         </div>
 
+        <!-- STEP 1 -->
         <div class="service-card fade-up">
-          <div class="service-num-col"><span class="service-num">01</span>
+          <div class="service-num-col">
+            <span class="service-num">01</span>
             <div class="service-arrow-line"></div>
           </div>
           <div class="service-body">
             <div class="service-name-row">
-              <h3 class="service-name">Flutter Development</h3><a href="#" class="service-link-icon">&#8599;</a>
+              <h3 class="service-name">Discovery Call</h3>
+              <span class="service-duration-chip">&#9201; 30 min</span>
             </div>
-            <p class="service-desc-text">Cross-platform mobile apps for iOS and Android with pixel-perfect UI, clean
-              architecture, and BLoC state management &mdash; shipped to App Store &amp; Play Store.</p>
-            <div class="service-tags"><span class="service-proc-tag">Flutter / Dart</span><span
-                class="service-proc-tag">BLoC</span><span class="service-proc-tag">Clean Architecture</span><span
-                class="service-proc-tag">App Store</span><span class="service-proc-tag">Play Store</span></div>
+            <div class="service-outcome-row">
+              <span class="service-outcome-arrow">&#8594;</span> Understand your needs
+            </div>
+            <p class="service-desc-text">In-depth consultation to clarify product vision, business goals, target audience, core feature requirements, and technical feasibility.</p>
+            <div class="service-tags">
+              <span class="service-proc-tag">Requirement Gathering</span>
+              <span class="service-proc-tag">Technical Feasibility</span>
+              <span class="service-proc-tag">Goal Alignment</span>
+              <span class="service-proc-tag">Scope Definition</span>
+            </div>
           </div>
           <div class="service-hover-img"
-            style="background:linear-gradient(135deg,#0d1a2e,#1a3a5c);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;">
-            Flutter Preview</div>
+            style="background:linear-gradient(135deg,#1f130a,#3d2210);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-display);padding:16px;text-align:center;">
+            <div style="font-size:11px;color:var(--orange);letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px;">Phase 01</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;">Discovery Call</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px;">&#9201; 30 minutes</div>
+          </div>
         </div>
 
+        <!-- STEP 2 -->
         <div class="service-card fade-up">
-          <div class="service-num-col"><span class="service-num">02</span>
+          <div class="service-num-col">
+            <span class="service-num">02</span>
             <div class="service-arrow-line"></div>
           </div>
           <div class="service-body">
             <div class="service-name-row">
-              <h3 class="service-name">Firebase &amp; Supabase</h3><a href="#" class="service-link-icon">&#8599;</a>
+              <h3 class="service-name">Proposal &amp; Timeline</h3>
+              <span class="service-duration-chip">&#9201; 1&ndash;2 days</span>
             </div>
-            <p class="service-desc-text">Backend integration for authentication, Firestore databases, cloud functions,
-              push notifications, and Supabase RLS policies for role-based data access.</p>
-            <div class="service-tags"><span class="service-proc-tag">Firebase Auth</span><span
-                class="service-proc-tag">Firestore</span><span class="service-proc-tag">Supabase</span><span
-                class="service-proc-tag">Cloud Functions</span><span class="service-proc-tag">FCM</span></div>
+            <div class="service-outcome-row">
+              <span class="service-outcome-arrow">&#8594;</span> Clear scope and cost
+            </div>
+            <p class="service-desc-text">Comprehensive project breakdown with transparent pricing, architecture roadmap, milestone deliverables, and exact timelines.</p>
+            <div class="service-tags">
+              <span class="service-proc-tag">Milestone Breakdown</span>
+              <span class="service-proc-tag">Cost Estimation</span>
+              <span class="service-proc-tag">Architecture Plan</span>
+              <span class="service-proc-tag">Fixed Scope</span>
+            </div>
           </div>
           <div class="service-hover-img"
-            style="background:linear-gradient(135deg,#0e1a12,#1a3a22);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;">
-            Backend Preview</div>
+            style="background:linear-gradient(135deg,#0d1a2e,#1a3a5c);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-display);padding:16px;text-align:center;">
+            <div style="font-size:11px;color:#60a5fa;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px;">Phase 02</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;">Proposal &amp; Scope</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px;">&#9201; 1&ndash;2 days delivery</div>
+          </div>
         </div>
 
+        <!-- STEP 3 -->
         <div class="service-card fade-up">
-          <div class="service-num-col"><span class="service-num">03</span>
+          <div class="service-num-col">
+            <span class="service-num">03</span>
             <div class="service-arrow-line"></div>
           </div>
           <div class="service-body">
             <div class="service-name-row">
-              <h3 class="service-name">CI/CD &amp; Testing</h3><a href="#" class="service-link-icon">&#8599;</a>
+              <h3 class="service-name">Design &amp; Development</h3>
+              <span class="service-duration-chip">&#9201; 2&ndash;8 weeks</span>
             </div>
-            <p class="service-desc-text">Automated build and deployment pipelines with GitHub Actions, alongside unit
-              and widget tests for critical business logic &mdash; zero critical production incidents.</p>
-            <div class="service-tags"><span class="service-proc-tag">GitHub Actions</span><span
-                class="service-proc-tag">Unit Testing</span><span class="service-proc-tag">Widget Testing</span><span
-                class="service-proc-tag">TDD Principles</span></div>
+            <div class="service-outcome-row">
+              <span class="service-outcome-arrow">&#8594;</span> Weekly updates
+            </div>
+            <p class="service-desc-text">Iterative mobile application engineering using Flutter &amp; native tech, clean BLoC architecture, responsive UI components, and weekly demo releases.</p>
+            <div class="service-tags">
+              <span class="service-proc-tag">Flutter / Native Build</span>
+              <span class="service-proc-tag">BLoC Architecture</span>
+              <span class="service-proc-tag">Weekly Live Demos</span>
+              <span class="service-proc-tag">Clean Code</span>
+            </div>
           </div>
           <div class="service-hover-img"
-            style="background:linear-gradient(135deg,#1a0d2e,#2d1a50);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;">
-            CI/CD Preview</div>
+            style="background:linear-gradient(135deg,#1a0d2e,#2d1a50);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-display);padding:16px;text-align:center;">
+            <div style="font-size:11px;color:#c084fc;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px;">Phase 03</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;">Design &amp; Dev</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px;">&#9201; 2&ndash;8 weeks build</div>
+          </div>
         </div>
 
+        <!-- STEP 4 -->
         <div class="service-card fade-up">
-          <div class="service-num-col"><span class="service-num">04</span>
+          <div class="service-num-col">
+            <span class="service-num">04</span>
             <div class="service-arrow-line"></div>
           </div>
           <div class="service-body">
             <div class="service-name-row">
-              <h3 class="service-name">AI &amp; Native Android</h3><a href="#" class="service-link-icon">&#8599;</a>
+              <h3 class="service-name">Testing &amp; Deployment</h3>
+              <span class="service-duration-chip">&#9201; 1 week</span>
             </div>
-            <p class="service-desc-text">Integrating AI/LLM capabilities into Flutter apps (RAG, LangChain), and native
-              Android development with Kotlin and Jetpack Compose for platform-specific features.</p>
-            <div class="service-tags"><span class="service-proc-tag">Kotlin</span><span class="service-proc-tag">Jetpack
-                Compose</span><span class="service-proc-tag">LangChain</span><span class="service-proc-tag">LLM
-                APIs</span><span class="service-proc-tag">Python</span></div>
+            <div class="service-outcome-row">
+              <span class="service-outcome-arrow">&#8594;</span> App Store/Play Store launch
+            </div>
+            <p class="service-desc-text">Rigorous unit &amp; widget testing, GitHub Actions CI/CD automation, store guideline audits, and smooth publishing to App Store and Google Play.</p>
+            <div class="service-tags">
+              <span class="service-proc-tag">Unit &amp; Widget Testing</span>
+              <span class="service-proc-tag">GitHub Actions CI/CD</span>
+              <span class="service-proc-tag">App Store Launch</span>
+              <span class="service-proc-tag">Play Store Release</span>
+            </div>
           </div>
           <div class="service-hover-img"
-            style="background:linear-gradient(135deg,#1a1000,#3a2800);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;">
-            AI Preview</div>
+            style="background:linear-gradient(135deg,#0e1a12,#1a3a22);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-display);padding:16px;text-align:center;">
+            <div style="font-size:11px;color:#4ade80;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px;">Phase 04</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;">Testing &amp; Launch</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px;">&#9201; 1 week deployment</div>
+          </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="service-card fade-up">
+          <div class="service-num-col">
+            <span class="service-num">05</span>
+            <div class="service-arrow-line"></div>
+          </div>
+          <div class="service-body">
+            <div class="service-name-row">
+              <h3 class="service-name">Support &amp; Maintenance</h3>
+              <span class="service-duration-chip">&#9201; Ongoing</span>
+            </div>
+            <div class="service-outcome-row">
+              <span class="service-outcome-arrow">&#8594;</span> Bug fixes and updates
+            </div>
+            <p class="service-desc-text">Dedicated post-launch support providing performance optimization, rapid bug resolution, new OS/SDK updates, and ongoing feature enhancement.</p>
+            <div class="service-tags">
+              <span class="service-proc-tag">SLA Bug Fixes</span>
+              <span class="service-proc-tag">OS Compatibility</span>
+              <span class="service-proc-tag">Performance Audits</span>
+              <span class="service-proc-tag">Feature Scaling</span>
+            </div>
+          </div>
+          <div class="service-hover-img"
+            style="background:linear-gradient(135deg,#1a1000,#3a2800);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-display);padding:16px;text-align:center;">
+            <div style="font-size:11px;color:#fbbf24;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px;">Phase 05</div>
+            <div style="font-size:16px;font-weight:700;color:#fff;">Support &amp; Growth</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px;">&#9201; Continuous SLA</div>
+          </div>
         </div>
 
       </div>
@@ -2899,7 +3009,7 @@
               <a href="#about-sec">About</a>
               <a href="#works-sec">Projects</a>
               <a href="#experience-sec">Experience</a>
-              <a href="#Service-sec">Skills</a>
+              <a href="#Service-sec">How I Work</a>
               <a href="#contact">Contact</a>
             </div>
           </div>
