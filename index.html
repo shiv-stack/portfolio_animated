@@ -1702,6 +1702,7 @@
 
       .footer-grid {
         grid-template-columns: 1fr 1fr;
+        gap: 36px 48px;
       }
 
       .exp-item {
@@ -1816,7 +1817,7 @@
       #hero-content {
         padding: 0 20px;
         justify-content: flex-end;
-        padding-bottom: 100px;
+        padding-bottom: 90px;
       }
 
       .hero-hi {
@@ -1839,6 +1840,7 @@
 
       .hero-actions {
         gap: 12px;
+        flex-wrap: wrap;
       }
 
       .btn-orange,
@@ -1848,7 +1850,16 @@
       }
 
       .btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         font-size: 13px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, .85);
+        padding: 12px 20px;
+        border-radius: 50px;
+        border: 1px solid rgba(255, 255, 255, .15);
+        background: rgba(255, 255, 255, .04);
       }
 
       #social-proof {
@@ -1856,10 +1867,10 @@
       }
 
       #scroll-hint {
-        bottom: 28px;
+        bottom: 24px;
       }
 
-      /* SECTIONS — tighten vertical rhythm */
+      /* SECTIONS */
       #about-sec {
         padding: 72px 0;
       }
@@ -1899,12 +1910,6 @@
         margin-bottom: 28px;
       }
 
-      .hero-actions .btn-orange,
-      .hero-actions .btn-resume {
-        flex: 1;
-        justify-content: center;
-      }
-
       .skills-grid {
         gap: 8px;
         margin-top: 24px;
@@ -1917,10 +1922,7 @@
 
       /* PROJECTS */
       .projects-head {
-        margin-bottom: 40px;
-        gap: 16px;
-        align-items: flex-start;
-        flex-direction: column;
+        margin-bottom: 32px;
       }
 
       .projects-title {
@@ -2018,13 +2020,28 @@
         padding: 4px 10px;
       }
 
-      /* EDUCATION / TESTI */
+      /* EDUCATION / BACKGROUND — CENTERED ON MOBILE */
       .testi-head {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
         margin-bottom: 40px;
+      }
+
+      .testi-head > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .testi-avg {
+        text-align: center;
       }
 
       .testi-title {
         font-size: clamp(26px, 7vw, 40px);
+        text-align: center;
       }
 
       .testi-grid {
@@ -2041,7 +2058,7 @@
       }
 
       .testi-score {
-        font-size: 38px;
+        font-size: 42px;
       }
 
       /* FULL-SPAN CARD IN TESTI GRID */
@@ -2077,18 +2094,22 @@
         margin-top: 28px;
       }
 
-      /* FOOTER */
+      /* FOOTER — REMAINS SAME AS WEB DESIGN */
       .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 36px;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px 24px;
         margin-bottom: 40px;
       }
 
       .footer-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
         padding-top: 20px;
+        border-top: 1px solid var(--border);
       }
     }
 
@@ -2117,14 +2138,23 @@
         font-size: 13px;
       }
 
+      .btn-ghost {
+        padding: 11px 18px;
+        font-size: 13px;
+      }
+
       .hero-actions {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
         gap: 10px;
       }
 
+      .hero-actions .btn-orange,
+      .hero-actions .btn-resume,
       .hero-actions .btn-ghost {
-        display: none;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
       }
 
       .testi-card[style*="grid-column"]>div {
@@ -2151,6 +2181,17 @@
 
       .pl-loading {
         font-size: 22px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px 16px;
+      }
+
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 12px;
       }
     }
   </style>
@@ -2348,8 +2389,6 @@
             <div class="section-label fade-up"><span class="star-icon">&#10022;</span> Featured Projects</div>
             <h2 class="projects-title fade-up">Production Apps<br>Shipped to Stores</h2>
           </div>
-          <a href="javascript:void(0)" class="projects-cta fade-up" id="view-more-projects-btn"
-            style="cursor:pointer;text-decoration:none;">View More &#8599;</a>
         </div>
         <div class="projects-grid">
 
@@ -2434,6 +2473,12 @@
               <a href="https://apps.apple.com/in/app/symbicare/id1393616437" target="_blank" class="project-link">View
                 on App Store &#8599;</a>
             </div>
+          </div>
+
+          <!-- View More Button Container (Appears after Symbicare) -->
+          <div class="view-more-wrap fade-up" style="grid-column: 1 / -1; text-align: center; margin-top: 16px; margin-bottom: 12px;">
+            <a href="javascript:void(0)" class="btn-orange" id="view-more-projects-btn"
+              style="cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:10px; padding:14px 28px;">View More Projects <span class="btn-icon">&#8599;</span></a>
           </div>
 
           <!-- Expensely (hidden — View More) -->
