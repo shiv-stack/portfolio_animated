@@ -1610,6 +1610,17 @@
       margin-bottom: 60px;
     }
 
+    .footer-grid > div:nth-child(2),
+    .footer-grid > div:nth-child(4) {
+      justify-self: end;
+      text-align: right;
+    }
+
+    .footer-grid > div:nth-child(2) .footer-links,
+    .footer-grid > div:nth-child(4) .footer-links {
+      align-items: flex-end;
+    }
+
     .footer-logo {
       font-family: var(--font-display);
       font-size: 16px;
@@ -1844,8 +1855,10 @@
       .hero-actions {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 12px;
         flex-wrap: wrap;
+        width: 100%;
       }
 
       .btn-orange,
@@ -2136,6 +2149,15 @@
 
       .hero-tagline {
         font-size: 16px;
+      }
+
+      .hero-actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        width: 100%;
       }
 
       .testi-card[style*="grid-column"]>div {
