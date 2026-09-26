@@ -2102,11 +2102,22 @@
         margin-top: 28px;
       }
 
-      /* FOOTER — SPACING BETWEEN COLUMNS & CENTERED BOTTOM */
+      /* FOOTER — EXCLUSIVE TO MOBILE VIEW */
       .footer-grid {
         grid-template-columns: 1fr 1fr;
         gap: 40px 36px;
         margin-bottom: 40px;
+      }
+
+      .footer-grid > div:nth-child(2),
+      .footer-grid > div:nth-child(4) {
+        justify-self: end;
+        text-align: right;
+      }
+
+      .footer-grid > div:nth-child(2) .footer-links,
+      .footer-grid > div:nth-child(4) .footer-links {
+        align-items: flex-end;
       }
 
       .footer-bottom {
