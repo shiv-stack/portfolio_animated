@@ -3138,6 +3138,812 @@
       if (!document.getElementById('pl-wrap')) startAll();
     })();
   </script>
+
+  <!-- ============================================================
+       FLOATING AI CHATBOT — Liquid Glass Design
+       Replace YOUR_GEMINI_API_KEY below with your actual key from
+       https://aistudio.google.com/app/apikey
+  ============================================================ -->
+  <style>
+    /* ── Liquid Glass Chat Widget ── */
+    #ai-chat-fab {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 16px;
+      pointer-events: none;
+    }
+
+    /* ── Chat Panel ── */
+    #ai-chat-panel {
+      width: 380px;
+      max-height: 560px;
+      border-radius: 28px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      pointer-events: all;
+
+      /* Liquid Glass core */
+      background: rgba(18, 8, 0, 0.45);
+      backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
+      -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(1.1);
+      border: 1px solid rgba(237, 122, 54, 0.25);
+      box-shadow:
+        0 8px 64px rgba(0,0,0,0.7),
+        0 1px 0 rgba(255,255,255,0.08) inset,
+        0 -1px 0 rgba(237,122,54,0.15) inset;
+
+      /* Animate in/out */
+      transform: translateY(24px) scale(0.95);
+      opacity: 0;
+      transition:
+        transform 0.45s cubic-bezier(0.34,1.56,0.64,1),
+        opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    #ai-chat-panel.open {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Subtle animated glass shimmer */
+    #ai-chat-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      background: linear-gradient(
+        135deg,
+        rgba(237,122,54,0.06) 0%,
+        transparent 40%,
+        rgba(255,255,255,0.03) 100%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Panel Header ── */
+    #ai-chat-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .chat-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(150deg, #ED7A36, #DD4D06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      box-shadow: 0 0 16px rgba(237,122,54,0.4);
+    }
+
+    .chat-header-info {
+      flex: 1;
+    }
+
+    .chat-header-name {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .chat-header-status {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 2px;
+    }
+
+    .chat-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: chatPulse 2s infinite;
+    }
+
+    @keyframes chatPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
+
+    #ai-chat-close {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    #ai-chat-close:hover {
+      background: rgba(237,122,54,0.2);
+      border-color: rgba(237,122,54,0.4);
+      color: #ED7A36;
+    }
+
+    /* ── Messages Area ── */
+    #ai-chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 280px;
+      max-height: 360px;
+      position: relative;
+      z-index: 1;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(237,122,54,0.3) transparent;
+    }
+
+    #ai-chat-messages::-webkit-scrollbar { width: 4px; }
+    #ai-chat-messages::-webkit-scrollbar-track { background: transparent; }
+    #ai-chat-messages::-webkit-scrollbar-thumb {
+      background: rgba(237,122,54,0.3);
+      border-radius: 4px;
+    }
+
+    /* Message bubble */
+    .chat-msg {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      animation: msgSlideIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+
+    @keyframes msgSlideIn {
+      from { opacity: 0; transform: translateY(10px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .chat-msg.user {
+      flex-direction: row-reverse;
+    }
+
+    .msg-bubble {
+      max-width: 82%;
+      padding: 11px 15px;
+      border-radius: 18px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .chat-msg.bot .msg-bubble {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: rgba(255,255,255,0.92);
+      border-bottom-left-radius: 6px;
+      backdrop-filter: blur(10px);
+    }
+
+    .chat-msg.user .msg-bubble {
+      background: linear-gradient(135deg, #ED7A36, #DD4D06);
+      color: #fff;
+      border-bottom-right-radius: 6px;
+      box-shadow: 0 4px 16px rgba(237,122,54,0.35);
+    }
+
+    .msg-mini-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(150deg, #ED7A36, #DD4D06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* Typing indicator */
+    .chat-typing {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .typing-bubble {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 18px;
+      border-bottom-left-radius: 6px;
+      padding: 12px 16px;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .typing-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(237,122,54,0.7);
+      animation: typingBounce 1.2s infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingBounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+      40% { transform: translateY(-6px); opacity: 1; }
+    }
+
+    /* Quick suggestion chips */
+    #ai-chat-chips {
+      display: flex;
+      gap: 8px;
+      padding: 0 20px 14px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .chip {
+      padding: 6px 14px;
+      border-radius: 50px;
+      border: 1px solid rgba(237,122,54,0.3);
+      background: rgba(237,122,54,0.08);
+      color: rgba(255,255,255,0.75);
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .chip:hover {
+      background: rgba(237,122,54,0.2);
+      border-color: rgba(237,122,54,0.6);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* ── Input Row ── */
+    #ai-chat-input-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    #ai-chat-input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px;
+      padding: 10px 18px;
+      color: #fff;
+      font-size: 13.5px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      resize: none;
+      height: 42px;
+      line-height: 22px;
+    }
+
+    #ai-chat-input::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+
+    #ai-chat-input:focus {
+      border-color: rgba(237,122,54,0.5);
+      background: rgba(255,255,255,0.08);
+    }
+
+    #ai-chat-send {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ED7A36, #DD4D06);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(237,122,54,0.4);
+      transition: all 0.2s ease;
+    }
+
+    #ai-chat-send:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 24px rgba(237,122,54,0.6);
+    }
+
+    #ai-chat-send:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    #ai-chat-send svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ── Floating Trigger Button ── */
+    #ai-chat-trigger {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(150deg, #ED7A36, #DD4D06);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      position: relative;
+      pointer-events: all;
+      box-shadow: 0 8px 32px rgba(237,122,54,0.5);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    #ai-chat-trigger:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 40px rgba(237,122,54,0.65);
+    }
+
+    /* Pulse ring */
+    #ai-chat-trigger::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid rgba(237,122,54,0.5);
+      animation: fabRing 2.5s ease-out infinite;
+    }
+
+    @keyframes fabRing {
+      0%   { transform: scale(1);   opacity: 0.8; }
+      70%  { transform: scale(1.5); opacity: 0; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
+    /* Notification badge */
+    #ai-chat-badge {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #4ade80;
+      border: 2px solid #120800;
+      display: block;
+    }
+
+    /* ── Mobile responsive ── */
+    @media (max-width: 480px) {
+      #ai-chat-fab { bottom: 20px; right: 16px; }
+      #ai-chat-panel { width: calc(100vw - 32px); }
+    }
+
+    /* Powered by label */
+    #ai-chat-poweredby {
+      text-align: center;
+      font-size: 10px;
+      color: rgba(255,255,255,0.2);
+      padding: 0 0 10px;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.05em;
+    }
+  </style>
+
+  <!-- Chat HTML -->
+  <div id="ai-chat-fab">
+    <!-- Panel -->
+    <div id="ai-chat-panel" role="dialog" aria-label="AI Assistant Chat">
+      <!-- Header -->
+      <div id="ai-chat-header">
+        <div class="chat-avatar">🤖</div>
+        <div class="chat-header-info">
+          <div class="chat-header-name">Shiv's AI Assistant</div>
+          <div class="chat-header-status">
+            <span class="chat-status-dot"></span>
+            Powered by Gemini
+          </div>
+        </div>
+        <button id="ai-chat-close" aria-label="Close chat">✕</button>
+      </div>
+
+      <!-- Messages -->
+      <div id="ai-chat-messages">
+        <!-- Intro message injected by JS -->
+      </div>
+
+      <!-- Quick chips -->
+      <div id="ai-chat-chips">
+        <button class="chip" data-msg="What tech stack does Shivam use?">⚡ Tech Stack</button>
+        <button class="chip" data-msg="Tell me about Shivam's projects">📱 Projects</button>
+        <button class="chip" data-msg="Is Shivam available for hire?">💼 Hire</button>
+        <button class="chip" data-msg="How can I contact Shivam?">📬 Contact</button>
+      </div>
+
+      <!-- Input -->
+      <div id="ai-chat-input-row">
+        <input
+          type="text"
+          id="ai-chat-input"
+          placeholder="Ask me anything about Shivam…"
+          autocomplete="off"
+          maxlength="400"
+        />
+        <button id="ai-chat-send" aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+
+      <div id="ai-chat-poweredby">✦ Powered by Gemini</div>
+    </div>
+
+    <!-- FAB Trigger -->
+    <button id="ai-chat-trigger" aria-label="Open AI assistant">
+      <span id="ai-chat-badge"></span>
+      🤖
+    </button>
+  </div>
+
+  <!-- Optional local configuration for offline / local testing without Vercel CLI (ignored by Git) -->
+  <script src="config.js" onerror="/* config.js is optional in production */"></script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var MODEL_NAMES = ['gemini-3.1-flash-lite', 'gemini-3.8-flash', 'gemini-flash-latest'];
+
+    /* ── System prompt — all about Shivam ── */
+    var SYSTEM_PROMPT = `You are Shiv's AI assistant, a friendly, witty, and knowledgeable portfolio assistant for Shivam Thapa — a Mobile Application Engineer with 5+ years of experience.
+
+Here is everything you know about Shivam:
+
+NAME: Shivam Thapa
+ROLE: Mobile Application Engineer
+EXPERIENCE: 5+ years building scalable Flutter/Dart mobile apps
+SPECIALITIES: Flutter, Dart, Firebase, Supabase, BLoC state management, Clean Architecture, Kotlin, Jetpack Compose, LangChain, Python, Figma, GitHub Actions
+
+KEY ACHIEVEMENTS:
+- 3+ apps successfully published on App Store & Play Store
+- 20% performance improvements delivered across projects
+- 0 critical bugs in production
+- Expert in cross-platform app development (iOS + Android)
+
+NOTABLE PROJECTS (from portfolio):
+- Delivered production-ready apps with real-world users
+- Specialises in fintech, health, and productivity app verticals
+- Strong focus on pixel-perfect UI matching Figma designs
+
+CONTACT & LINKS:
+- Portfolio: Current website you are embedded in
+- Email: Available via the Contact section
+- LinkedIn & GitHub: Linked in the portfolio footer
+- Resume/CV: Available to download from the portfolio
+
+AVAILABILITY: Open to freelance, contract, and full-time remote opportunities
+
+PERSONALITY: Professional yet approachable, passionate about clean code and great UX
+
+YOUR RULES:
+- Keep answers concise, warm, and helpful (2-4 sentences max unless more detail is asked)
+- If asked something you don't know about Shivam, say "You'd have to ask Shivam directly — reach out via the Contact section!"
+- Do NOT make up any information not listed above
+- Always be enthusiastic about Shivam's work
+- Add a relevant emoji occasionally to keep things friendly
+- If asked who you are: say you are Shivam's AI portfolio assistant, built with Gemini`;
+
+    /* ── State ── */
+    var isOpen = false;
+    var isThinking = false;
+    var conversationHistory = [];
+    var hasGreeted = false;
+
+    /* ── DOM refs ── */
+    var panel    = document.getElementById('ai-chat-panel');
+    var trigger  = document.getElementById('ai-chat-trigger');
+    var closeBtn = document.getElementById('ai-chat-close');
+    var messages = document.getElementById('ai-chat-messages');
+    var input    = document.getElementById('ai-chat-input');
+    var sendBtn  = document.getElementById('ai-chat-send');
+    var badge    = document.getElementById('ai-chat-badge');
+    var chips    = document.querySelectorAll('.chip');
+
+    /* ── Toggle chat ── */
+    function toggleChat() {
+      isOpen = !isOpen;
+      if (isOpen) {
+        panel.classList.add('open');
+        badge.style.display = 'none';
+        if (!hasGreeted) {
+          hasGreeted = true;
+          setTimeout(function () { showGreeting(); }, 350);
+        }
+        setTimeout(function () { input.focus(); }, 400);
+      } else {
+        panel.classList.remove('open');
+      }
+    }
+
+    trigger.addEventListener('click', toggleChat);
+    closeBtn.addEventListener('click', function () {
+      isOpen = true;
+      toggleChat();
+    });
+
+    /* ── Greeting ── */
+    function showGreeting() {
+      appendBotMessage("Hi there! 👋 I'm Shivam's AI assistant. I can tell you about his skills, projects, experience, or how to get in touch. What would you like to know?");
+    }
+
+    /* ── Append messages ── */
+    function appendBotMessage(text) {
+      var msg = document.createElement('div');
+      msg.className = 'chat-msg bot';
+      msg.innerHTML =
+        '<div class="msg-mini-avatar">🤖</div>' +
+        '<div class="msg-bubble">' + escapeHtml(text) + '</div>';
+      messages.appendChild(msg);
+      scrollToBottom();
+    }
+
+    function appendUserMessage(text) {
+      var msg = document.createElement('div');
+      msg.className = 'chat-msg user';
+      msg.innerHTML = '<div class="msg-bubble">' + escapeHtml(text) + '</div>';
+      messages.appendChild(msg);
+      scrollToBottom();
+    }
+
+    /* ── Typing indicator ── */
+    var typingEl = null;
+    function showTyping() {
+      if (typingEl) return;
+      typingEl = document.createElement('div');
+      typingEl.className = 'chat-typing';
+      typingEl.innerHTML =
+        '<div class="msg-mini-avatar">🤖</div>' +
+        '<div class="typing-bubble">' +
+          '<div class="typing-dot"></div>' +
+          '<div class="typing-dot"></div>' +
+          '<div class="typing-dot"></div>' +
+        '</div>';
+      messages.appendChild(typingEl);
+      scrollToBottom();
+    }
+
+    function hideTyping() {
+      if (typingEl) { typingEl.remove(); typingEl = null; }
+    }
+
+    /* ── Send message ── */
+    function sendMessage(text) {
+      text = (text || input.value).trim();
+      if (!text || isThinking) return;
+
+      input.value = '';
+      appendUserMessage(text);
+      conversationHistory.push({ role: 'user', parts: [{ text: text }] });
+
+      setThinking(true);
+      showTyping();
+      hideChips();
+
+      requestAiResponse();
+    }
+
+    function setThinking(val) {
+      isThinking = val;
+      sendBtn.disabled = val;
+      input.disabled = val;
+    }
+
+    function hideChips() {
+      var chipsContainer = document.getElementById('ai-chat-chips');
+      if (chipsContainer) chipsContainer.style.display = 'none';
+    }
+
+    /* ── Primary AI Dispatch: Serverless Proxy with Local Fallback ── */
+    function requestAiResponse() {
+      fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents: conversationHistory
+        })
+      })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Status ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        if (data && data.reply) {
+          hideTyping();
+          conversationHistory.push({ role: 'model', parts: [{ text: data.reply }] });
+          typeMessage(data.reply);
+          setThinking(false);
+        } else {
+          throw new Error('No reply in response');
+        }
+      })
+      .catch(function (err) {
+        // Fallback for local testing if running a plain static server (e.g. python http.server)
+        if (window.GEMINI_API_KEY && window.GEMINI_API_KEY !== 'YOUR_GEMINI_API_KEY_HERE') {
+          callGeminiDirect(0);
+        } else {
+          hideTyping();
+          appendBotMessage("Oops! The AI service is currently unavailable. Please try again shortly! 🙏");
+          console.warn('[AI Chat]', err);
+          setThinking(false);
+        }
+      });
+    }
+
+    /* ── Local fallback call directly to Gemini API ── */
+    function callGeminiDirect(modelIdx) {
+      if (modelIdx >= MODEL_NAMES.length) {
+        hideTyping();
+        appendBotMessage("Oops! The AI service is currently busy. Please try asking again in a few moments. 🙏");
+        setThinking(false);
+        return;
+      }
+
+      var modelName = MODEL_NAMES[modelIdx];
+      var url = 'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent?key=' + window.GEMINI_API_KEY;
+
+      var body = {
+        system_instruction: {
+          parts: [{ text: SYSTEM_PROMPT }]
+        },
+        contents: conversationHistory,
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 300
+        }
+      };
+
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Status ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        var parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
+        var textPart = null;
+        for (var p = 0; p < parts.length; p++) {
+          if (parts[p].text && !parts[p].thought) {
+            textPart = parts[p].text;
+            break;
+          }
+        }
+        if (!textPart && parts.length > 0 && parts[0].text) {
+          textPart = parts[0].text;
+        }
+
+        if (textPart) {
+          hideTyping();
+          conversationHistory.push({ role: 'model', parts: [{ text: textPart }] });
+          typeMessage(textPart);
+          setThinking(false);
+        } else {
+          callGeminiDirect(modelIdx + 1);
+        }
+      })
+      .catch(function (err) {
+        callGeminiDirect(modelIdx + 1);
+      });
+    }
+
+    /* ── Typewriter effect for bot reply ── */
+    function typeMessage(text) {
+      var msg = document.createElement('div');
+      msg.className = 'chat-msg bot';
+      var bubble = document.createElement('div');
+      bubble.className = 'msg-bubble';
+      msg.innerHTML = '<div class="msg-mini-avatar">🤖</div>';
+      msg.appendChild(bubble);
+      messages.appendChild(msg);
+
+      var i = 0;
+      var speed = Math.max(12, Math.min(30, 2000 / text.length));
+
+      function typeNext() {
+        if (i < text.length) {
+          bubble.textContent += text[i];
+          i++;
+          scrollToBottom();
+          setTimeout(typeNext, speed);
+        }
+      }
+      typeNext();
+    }
+
+    /* ── Helpers ── */
+    function scrollToBottom() {
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    /* ── Event listeners ── */
+    sendBtn.addEventListener('click', function () { sendMessage(); });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var msg = chip.getAttribute('data-msg');
+        if (!isOpen) { isOpen = true; toggleChat(); isOpen = false; toggleChat(); }
+        if (!isOpen) toggleChat();
+        setTimeout(function () { sendMessage(msg); }, 350);
+      });
+    });
+
+    /* ── Show badge after 3s to attract attention ── */
+    setTimeout(function () {
+      if (!isOpen) badge.style.display = 'block';
+    }, 3000);
+
+  })();
+  </script>
+
 </body>
 
 </html>
